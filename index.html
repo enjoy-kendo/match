@@ -29,6 +29,15 @@
        th, td { border: 1px solid #aaa; height: 30px; text-align: center; font-size: 11px; padding: 1px; position: relative; }
        th { background: #eee; }
 
+      .name-header{
+       overflow-wrap: break-word;
+       word-break: break-all;
+       line-height: 1.1;
+       font-size: 11px;
+       overflow: hidden;
+       font-weight: normal;
+      }
+
        .diagonal-line {
            background: #eee;
            background-image: linear-gradient(to top right, transparent 49%, #aaa 50%, #aaa 51%, transparent 52%);
@@ -45,6 +54,7 @@
            .no-print { display: none; }
            .page { page-break-after: always; margin-bottom: 0; }
            .page:last-child { page-break-after: avoid; }
+             h2.section-title{ margin: 15px 0 15px 0 !important;}
 
            /* 枠線の均一化 */
            table { border-collapse: separate !important; border-spacing: 0 !important; border-left: 1px solid #333; border-top: 1px solid #333; }
@@ -102,7 +112,8 @@
 /* 対戦順表の行の高さ */
 .match-list-column table th,
 .match-list-column table td {
-    height: 45px !important;
+    height: 50px !important;
+    font-size: 15px !important;
 }
 
 /* 1列表示（3～5人）のとき */
@@ -170,11 +181,11 @@
 
        const headerHtml = `<div class="header-container"><h1>${eventName}</h1><div class="date-display">${dateStr}</div></div>`;
        let html = `<div class="page" data-n="${n}">` + headerHtml + `<h2 class="section-title">対戦表</h2><table><tr><th></th>`;
-       names.forEach(name => html += `<th>${name}</th>`);
+       names.forEach(name => html += `<th class="name-header">${name}</th>`);
        html += "</tr>";
 
        for (let i = 0; i < n; i++) {
-           html += `<tr><th>${names[i]}</th>`;
+           html += `<tr><th class="name-header">${names[i]}</th>`;
            for (let j = 0; j < n; j++) {
                const match = matches.find(m => (m.p1 === names[i] && m.p2 === names[j]) || (m.p1 === names[j] && m.p2 === names[i]));
                html += (i === j) ? `<td class="diagonal-line"></td>` : `<td><span class="match-num">${match ? match.num : ""}</span></td>`;
