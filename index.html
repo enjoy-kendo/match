@@ -77,7 +77,7 @@
            ========================================== */
         body.share-mode { padding: 2px 10px!important; }
         body.share-mode .no-print { display: none !important; }
-        body.share-mode .back-btn-area { display: block !important; margin-bottom: 2px !important; }
+        body.share-mode .back-btn-area { display: block !important; text-align: left !important; margin-top: 20px !important; margin-bottom: 20px !important; }
         body.share-mode h2.section-title { font-size: 9pt !important; margin: 1px 0 !important; }
         
         body.share-mode .page h2.match-list-title { margin-top: 20px !important; }
@@ -88,6 +88,21 @@
         
         body.share-mode .page table th, body.share-mode .page table td { height: 21px !important; font-size: 9px !important; padding: 0 !important; }
         body.share-mode .match-list-column table th, body.share-mode .match-list-column table td { height: 19px !important; font-size: 9px !important; padding: 0 !important; }
+        
+        /* 3〜7人のときの高さ指定 */
+        body.share-mode .page[data-n="3"] .match-list-column table th, body.share-mode .page[data-n="3"] .match-list-column table td,
+        body.share-mode .page[data-n="4"] .match-list-column table th, body.share-mode .page[data-n="4"] .match-list-column table td,
+        body.share-mode .page[data-n="5"] .match-list-column table th, body.share-mode .page[data-n="5"] .match-list-column table td,
+        body.share-mode .page[data-n="6"] .match-list-column table th, body.share-mode .page[data-n="6"] .match-list-column table td,
+        body.share-mode .page[data-n="7"] .match-list-column table th, body.share-mode .page[data-n="7"] .match-list-column table td {
+            height: 25px !important;
+        }
+
+        /* ★ 8人のときだけの高さ指定（お好みで高さを変更できます） */
+        body.share-mode .page[data-n="8"] .match-list-column table th, 
+        body.share-mode .page[data-n="8"] .match-list-column table td {
+            height: 23px !important;
+        }
         
         body.share-mode .match-list-container { gap: 10px !important; }
         body.share-mode .print-col-3 { min-width: 31% !important; max-width: 32% !important; }
@@ -184,13 +199,13 @@
         <button id="printBtn" onclick="window.print()" disabled style="background-color: #6c757d;">印刷する</button>
     </div>
 
-    <!-- 共有画面から戻るためのボタン（共有モード時のみ表示） -->
-    <div class="back-btn-area no-print">
-        <button onclick="exitShareMode()" style="background-color: #6c757d; padding: 4px 10px; font-size: 12px;">← 入力画面に戻る</button>
-    </div>
-
     <!-- 生成された対戦表が表示されるエリア -->
     <div id="output"></div>
+
+    <!-- 共有画面から戻るためのボタン（共有モード時のみ表示・一番下に配置・左寄せ） -->
+    <div class="back-btn-area">
+        <button onclick="exitShareMode()" style="background-color: #6c757d; padding: 10px 20px; font-size: 14px;">← 入力画面に戻る</button>
+    </div>
 
     <script>
         const LEAGUE_TABLES = {
@@ -257,7 +272,7 @@
             html += `</div></div>`;
 
             // 共有画面モード切替ボタン
-            html += `<div style="margin-top: 10px; text-align: center;" class="no-print">` +
+            html += `<div style="margin-top: 20px; text-align: left;" class="no-print">` +
                     `<button onclick="enterShareMode()" style="background-color: #28a745; font-size: 16px; padding: 12px 24px;">スクショしやすい全画面表示にする</button>` +
                     `</div>`;
 
@@ -273,6 +288,7 @@
 
         function exitShareMode() {
             document.body.classList.remove('share-mode');
+            window.scrollTo(0, 0);
         }
     </script>
 </body>
