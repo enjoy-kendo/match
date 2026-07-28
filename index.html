@@ -21,141 +21,143 @@
         button { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; background-color: #007bff; color: white; font-weight: bold; font-size: 14px; margin-right: 5px; margin-bottom: 5px; }
         button:disabled { background-color: #ccc; }
 
-        /* 各ページコンテナのスタイル */
-        .page { margin-bottom: 30px; }
-        .section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
+        /* フォーム切替ボタンのスタイル（対戦順テーブルのすぐ左下） */
+        .toggle-form-btn { 
+            background-color: #343a40; 
+            color: white; 
+            font-size: 12px;
+            padding: 4px 10px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        .toggle-form-btn:hover { background-color: #23272b; }
+
+        /* 各ページコンテナの共通スタイル（画面用） */
+        .page { margin-bottom: 20px; }
+        .section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1px; }
         .date-display { font-size: 0.7em; color: #666; }
 
-        /* セクションタイトルのスタイル */
-        h2.section-title { font-size: 1.2em; margin: 10px 0 !important; }
+        /* セクションタイトルのスタイル（画面用：タイトルの下余白を詰める調整） */
+        .page h2.section-title { font-size: 11pt; margin: 0 0 1px 0 !important; }
+        .page h2.match-list-title { margin-top: 10px !important; }
 
-        .page h2.match-list-title { margin-top: 20px !important; }
+        /* テーブル共通のスタイル（画面用） */
+        .page table { border-collapse: collapse; width: 100%; table-layout: fixed; }
+        .page th, .page td { border: 1px solid #aaa; text-align: center; position: relative; }
+        .page th { background: #eee; }
 
-        /* テーブル共通のスタイル */
-        table { border-collapse: collapse; width: 100%; table-layout: fixed; }
-        th, td { border: 1px solid #aaa; height: 30px; text-align: center; font-size: 11px; padding: 1px; position: relative; }
-        th { background: #eee; }
-
-        /* ★ 対戦順表の「赤」「白」などのヘッダーを通常画面で細字にする設定 */
+        /* 対戦順表の「赤」「白」などのヘッダーを細字にする設定 */
         .match-list-column th { font-weight: normal; }
 
-        .name-header { overflow-wrap: break-word; word-break: break-all; line-height: 1.1; font-size: 11px; overflow: hidden; font-weight: normal; }
+        .name-header { overflow-wrap: break-word; word-break: break-all; line-height: 1.1; overflow: hidden; font-weight: normal; }
         .diagonal-line { background: #eee; background-image: linear-gradient(to top right, transparent 49%, #666 50%, #666 51%, transparent 52%); }
         
-        .match-list-column .match-num-col { width: 24px !important; }
-        .match-list-column td:first-child { width: 24px !important; }
+        .match-list-column .match-num-col { width: 24px; }
+        .match-list-column td:first-child { width: 24px; }
 
-        .page[data-n="9"] .match-list-column .match-num-col,
-        .page[data-n="10"] .match-list-column .match-num-col,
-        .page[data-n="9"] .match-list-column td:first-child,
-        .page[data-n="10"] .match-list-column td:first-child { width: 15px !important; }
-
-        .match-num { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 12px; color: #888; text-align: center; width: 100%; pointer-events: none; }
+        .match-num { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #888; text-align: center; width: 100%; pointer-events: none; font-size: 10px; }
         
-        .match-list-container { display: flex; flex-direction: row; flex-wrap: wrap; gap: 12px; }
-        .print-col-1 { min-width: 50% !important; max-width: 50% !important; }
-        .print-col-2 { min-width: 44% !important; flex: 1; }
-        .print-col-3 { min-width: 31% !important; flex: 1; }
+        .match-list-container { display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px; }
+        .print-col-1 { min-width: 50%; max-width: 50%; }
+        .print-col-2 { min-width: 44%; flex: 1; }
+        .print-col-3 { min-width: 31%; max-width: 32%; flex: 1; }
 
-        .match-list-column table th,
-        .match-list-column table td {
-            height: 30px !important;
-            font-size: 12px !important;
-        }
-
-        .match-list-column td:first-child {
-            font-size: 12px !important;
-        }
-
-        .page[data-n="9"] .match-list-column td:first-child,
-        .page[data-n="10"] .match-list-column td:first-child {
-            font-size: 10px !important;
+        .match-list-container table th,
+        .match-list-container table td {
+            height: 19px;
+            font-size: 9px;
+            padding: 0;
         }
 
         .print-only { display: none; }
-        .back-btn-area { display: none; }
+        .print-date { display: none; } /* 画面では非表示 */
 
         /* ==========================================
-            共有画面モード（プレビュー画面）のスタイル
+            通常画面プレビュー用の高さ・フォントサイズ調整
            ========================================== */
-        body.share-mode { padding: 5px 12px!important; }
-        body.share-mode .no-print { display: none !important; }
-        body.share-mode .back-btn-area { display: block !important; text-align: left !important; margin-top: 20px !important; margin-bottom: 20px !important; }
-        body.share-mode h2.section-title { font-size: 9pt !important; margin: 1px 0 !important; }
-        
-        body.share-mode .page h2.match-list-title { margin-top: 20px !important; }
+        .page[data-n="7"] table th, .page[data-n="7"] table td,
+        .page[data-n="8"] table th, .page[data-n="8"] table td,
+        .page[data-n="9"] table th, .page[data-n="9"] table td,
+        .page[data-n="10"] table th, .page[data-n="10"] table td { height: 21px; font-size: 9px; padding: 0; }
 
-        body.share-mode .match-num { color: #888 !important; font-size: 10px !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; }
-        body.share-mode .page { margin-bottom: 0 !important; }
-        body.share-mode .section-header { margin-bottom: 1px !important; }
-        
-        /* デフォルトの一括縮小（7人以上用） */
-        body.share-mode .page[data-n="7"] table th, body.share-mode .page[data-n="7"] table td,
-        body.share-mode .page[data-n="8"] table th, body.share-mode .page[data-n="8"] table td,
-        body.share-mode .page[data-n="9"] table th, body.share-mode .page[data-n="9"] table td,
-        body.share-mode .page[data-n="10"] table th, body.share-mode .page[data-n="10"] table td { height: 21px !important; font-size: 9px !important; padding: 0 !important; }
-
-        body.share-mode .match-list-column table th, body.share-mode .match-list-column table td { height: 19px !important; font-size: 9px !important; padding: 0 !important; }
-        
-        /* 3〜6人のときはプレビューでも縮小せず、通常サイズを維持する設定 */
-        body.share-mode .page[data-n="3"] table th, body.share-mode .page[data-n="3"] table td,
-        body.share-mode .page[data-n="4"] table th, body.share-mode .page[data-n="4"] table td,
-        body.share-mode .page[data-n="5"] table th, body.share-mode .page[data-n="5"] table td,
-        body.share-mode .page[data-n="6"] table th, body.share-mode .page[data-n="6"] table td {
-            height: 30px !important;
-            font-size: 11px !important;
-            padding: 1px !important;
+        .page[data-n="3"] table th, .page[data-n="3"] table td,
+        .page[data-n="4"] table th, .page[data-n="4"] table td,
+        .page[data-n="5"] table th, .page[data-n="5"] table td,
+        .page[data-n="6"] table th, .page[data-n="6"] table td {
+            height: 30px;
+            font-size: 11px;
+            padding: 1px;
         }
 
-        /* 3〜7人の対戦順表の高さ指定 */
-        body.share-mode .page[data-n="3"] .match-list-column table th, body.share-mode .page[data-n="3"] .match-list-column table td,
-        body.share-mode .page[data-n="4"] .match-list-column table th, body.share-mode .page[data-n="4"] .match-list-column table td,
-        body.share-mode .page[data-n="5"] .match-list-column table th, body.share-mode .page[data-n="5"] .match-list-column table td,
-        body.share-mode .page[data-n="6"] .match-list-column table th, body.share-mode .page[data-n="6"] .match-list-column table td,
-        body.share-mode .page[data-n="7"] .match-list-column table th, body.share-mode .page[data-n="7"] .match-list-column table td {
-            height: 30px !important;
-            font-size: 12px !important;
+        .page[data-n="3"] .match-list-column table th, .page[data-n="3"] .match-list-column table td,
+        .page[data-n="4"] .match-list-column table th, .page[data-n="4"] .match-list-column table td,
+        .page[data-n="5"] .match-list-column table th, .page[data-n="5"] .match-list-column table td,
+        .page[data-n="6"] .match-list-column table th, .page[data-n="6"] .match-list-column table td,
+        .page[data-n="7"] .match-list-column table th, .page[data-n="7"] .match-list-column table td {
+            height: 30px;
+            font-size: 12px;
         }
 
-        /* 8人のときの高さ指定 */
-        body.share-mode .page[data-n="8"] .match-list-column table th, 
-        body.share-mode .page[data-n="8"] .match-list-column table td {
-            height: 25px !important;
+        .page[data-n="8"] .match-list-column table th, 
+        .page[data-n="8"] .match-list-column table td {
+            height: 25px;
         }
+
+        .page[data-n="9"] table th, .page[data-n="9"] table td,
+        .page[data-n="10"] table th, .page[data-n="10"] table td { height: 18px; font-size: 8px; }
         
-        body.share-mode .match-list-container { gap: 10px !important; }
-        body.share-mode .print-col-3 { min-width: 31% !important; max-width: 32% !important; }
-
-        /* 9人・10人のメイン表の高さ指定 */
-        body.share-mode .page[data-n="9"] table th, body.share-mode .page[data-n="9"] table td,
-        body.share-mode .page[data-n="10"] table th, body.share-mode .page[data-n="10"] table td { height: 18px !important; font-size: 8px !important; }
-        
-        /* ★ 9人の対戦順表の高さ指定 */
-        body.share-mode .page[data-n="9"] .match-list-column table th, 
-        body.share-mode .page[data-n="9"] .match-list-column table td { 
-            height: 30px !important; 
-            font-size: 9px !important; 
+        .page[data-n="9"] .match-list-column table th, 
+        .page[data-n="9"] .match-list-column table td { 
+            height: 30px; 
+            font-size: 9px; 
         }
 
-        /* ★ 10人の対戦順表の高さ指定 */
-        body.share-mode .page[data-n="10"] .match-list-column table th, 
-        body.share-mode .page[data-n="10"] .match-list-column table td { 
-            height: 23px !important; 
-            font-size: 9px !important; 
+        .page[data-n="10"] .match-list-column table th, 
+        .page[data-n="10"] .match-list-column table td { 
+            height: 23px; 
+            font-size: 9px; 
         }
 
-        body.share-mode .print-only { display: none !important; }
-        body.share-mode .diagonal-line { background: #eee !important; background-image: linear-gradient(to top right, transparent 49%, #666 50%, #666 51%, transparent 52%) !important; }
 
         /* ==========================================
-            実際の印刷時の設定
+            完全独立した実際の印刷時の設定（@media print）
            ========================================== */
         @media print {
+            .no-print, .toggle-form-btn { display: none !important; }
+            
+            @page { size: A4 portrait; margin: 2mm 5mm 1mm 5mm; }
+
             .page {
                 margin-top: 0 !important;
+                margin-bottom: 0 !important;
+                position: relative !important;
             }
 
-            h2.section-title { 
+            .section-header { position: relative !important; }
+            .date-display { display: none !important; }
+
+            /* 印刷時：対戦表テーブルの右端の延長上に日付を配置 */
+            .print-date {
+                display: block !important;
+                position: absolute !important;
+                top: 3px !important;
+                font-size: 8pt !important;
+                color: #333 !important;
+                white-space: nowrap !important;
+            }
+
+            /* 人数ごとの表の幅に合わせて日付の右端位置を同期 */
+            .page[data-n="3"] .print-date { left: 50% !important; transform: translateX(-100%); }
+            .page[data-n="4"] .print-date { left: 60% !important; transform: translateX(-100%); }
+            .page[data-n="5"] .print-date { left: 70% !important; transform: translateX(-100%); }
+            .page[data-n="6"] .print-date { left: 80% !important; transform: translateX(-100%); }
+            .page[data-n="7"] .print-date { left: 90% !important; transform: translateX(-100%); }
+            .page[data-n="8"] .print-date { left: 95% !important; transform: translateX(-100%); }
+            .page[data-n="9"] .print-date { right: 0 !important; }
+            .page[data-n="10"] .print-date { right: 0 !important; }
+
+            .page h2.section-title { 
                 font-size: 9pt !important; 
                 margin-top: 3px !important; 
                 margin-bottom: 0px !important; 
@@ -166,9 +168,6 @@
                 margin-top: 30px !important; 
                 margin-bottom: 3px !important;
             }
-
-            @page { size: A4 portrait; margin: 2mm 5mm 1mm 5mm; }
-            .no-print, .back-btn-area { display: none !important; }
             
             .page table td .match-num { 
                 position: absolute !important;
@@ -184,18 +183,18 @@
             .page table th { background-color: #eee !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .page table { border-collapse: separate !important; border-spacing: 0 !important; border-left: 1px solid #333; border-top: 1px solid #333; width: 100% !important; }
             
-            .page table th, .page table td { border: 0 !important; border-right: 1px solid #333 !important; border-bottom: 1px solid #333 !important; height: 37px !important; }
+            .page table th, .page table td { border: 0 !important; border-right: 1px solid #333 !important; border-bottom: 1px solid #333 !important; height: 37px !important; font-size: 11px !important; }
             
             .page[data-n="9"] .match-list-column table th, 
             .page[data-n="9"] .match-list-column table td { height: 32px !important; font-size: 12px !important; }
-            .page[data-n="9"] .match-list-column td:first-child { font-size: 10px !important; }
+            .page[data-n="9"] .match-list-column td:first-child { font-size: 10px !important; width: 15px !important; }
 
             .page[data-n="10"] .match-list-column table th, 
             .page[data-n="10"] .match-list-column table td { height: 25px !important; font-size: 11px !important; }
-            .page[data-n="10"] .match-list-column td:first-child { font-size: 10px !important; }
+            .page[data-n="10"] .match-list-column td:first-child { font-size: 10px !important; width: 15px !important; }
 
             .match-list-column table th, .match-list-column table td { height: 27px !important; font-size: 12px !important; }
-            .match-list-column td:first-child { font-size: 12px !important; }
+            .match-list-column td:first-child { font-size: 12px !important; width: 30px !important; }
 
             .match-list-column .match-num-col { width: 30px !important; }
             
@@ -220,7 +219,7 @@
 <body>
 
     <!-- 入力・操作エリア -->
-    <div class="no-print">
+    <div id="formArea" class="no-print">
         <h2>リーグ戦作成ツール</h2>
         <div class="form-group">
             <label>参加者名（3〜10人、改行区切り）</label>
@@ -232,11 +231,6 @@
 
     <!-- 生成された対戦表が表示されるエリア -->
     <div id="output"></div>
-
-    <!-- 共有画面から戻るためのボタン（共有モード時のみ表示・一番下に配置・左寄せ） -->
-    <div class="back-btn-area">
-        <button onclick="exitShareMode()" style="background-color: #6c757d; padding: 10px 20px; font-size: 14px;">← 入力画面に戻る</button>
-    </div>
 
     <script>
         const LEAGUE_TABLES = {
@@ -276,7 +270,11 @@
             else if (n >= 9) printCols = 3;
 
             let html = `<div class="page" data-n="${n}">` +
-                       `<div class="section-header"><h2 class="section-title">対戦表（${n}人・${matches.length}試合）</h2><div class="date-display">${dateStr}</div></div>` +
+                       `<div class="section-header">` +
+                       `<h2 class="section-title">対戦表（${n}人・${matches.length}試合）</h2>` +
+                       `<div class="date-display">${dateStr}</div>` +
+                       `<div class="print-date">${dateStr}</div>` +
+                       `</div>` +
                        `<table><tr><th></th>`;
             names.forEach(name => html += `<th class="name-header">${name}</th>`);
             html += `<th class="print-only">勝</th><th class="print-only">負</th><th class="print-only">分</th><th class="print-only">順位</th></tr>`;
@@ -289,7 +287,10 @@
                 }
                 html += `<td class="print-only"></td><td class="print-only"></td><td class="print-only"></td><td class="print-only"></td></tr>`;
             }
-            html += `</table><h2 class="section-title match-list-title">対戦順</h2><div class="match-list-container">`;
+            
+            html += `</table>` +
+                    `<h2 class="section-title match-list-title">対戦順</h2>` +
+                    `<div class="match-list-container">`;
 
             const printColClass = `print-col-${printCols}`;
             const matchesPerCol = Math.ceil(matches.length / printCols);
@@ -300,11 +301,9 @@
                 colMatches.forEach(m => html += `<tr><td>${m.num}</td><td>${m.p1}</td><td>${m.p2}</td></tr>`);
                 html += `</table></div>`;
             }
-            html += `</div></div>`;
 
-            // 共有画面モード切替ボタン
-            html += `<div style="margin-top: 20px; text-align: left;" class="no-print">` +
-                    `<button onclick="enterShareMode()" style="background-color: #28a745; font-size: 16px; padding: 12px 24px;">スクショしやすい全画面表示にする</button>` +
+            html += `</div>` +
+                    `<button id="toggleBtn" class="toggle-form-btn" onclick="toggleForm()">入力フォームを隠す</button>` +
                     `</div>`;
 
             document.getElementById('output').innerHTML = html;
@@ -312,14 +311,17 @@
             document.getElementById('printBtn').style.backgroundColor = '#28a745';
         }
 
-        function enterShareMode() {
-            document.body.classList.add('share-mode');
-            window.scrollTo(0, 0);
-        }
-
-        function exitShareMode() {
-            document.body.classList.remove('share-mode');
-            window.scrollTo(0, 0);
+        // 入力フォームの表示・非表示を切り替える関数
+        function toggleForm() {
+            const formArea = document.getElementById('formArea');
+            const btn = document.getElementById('toggleBtn');
+            if (formArea.style.display === 'none') {
+                formArea.style.display = 'block';
+                btn.textContent = '入力フォームを隠す';
+            } else {
+                formArea.style.display = 'none';
+                btn.textContent = '入力フォームを表示する';
+            }
         }
     </script>
 </body>
