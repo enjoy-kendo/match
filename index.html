@@ -207,7 +207,7 @@
             .page[data-n="9"] table { width: 100% !important; }
             .page[data-n="10"] table { width: 100% !important; }
 
-            .print-only { display: table-cell !important; width: 20px !important; }
+            .print-only { display: table-cell !important; width: 20px !important; font-size: 8px !important; padding: 0 !important; }
             .diagonal-line { background: #eee !important; background-image: linear-gradient(to top right, transparent 49%, #666 50%, #666 51%, transparent 52%) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .match-list-container { display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px; }
             .print-col-1 { min-width: 50% !important; max-width: 50% !important; }
@@ -277,7 +277,7 @@
                        `</div>` +
                        `<table><tr><th></th>`;
             names.forEach(name => html += `<th class="name-header">${name}</th>`);
-            html += `<th class="print-only">勝</th><th class="print-only">負</th><th class="print-only">分</th><th class="print-only">順位</th></tr>`;
+            html += `<th class="print-only">本数</th><th class="print-only">勝</th><th class="print-only">負</th><th class="print-only">分</th><th class="print-only">順位</th></tr>`;
 
             for (let i = 0; i < n; i++) {
                 html += `<tr><th class="name-header">${names[i]}</th>`;
@@ -285,7 +285,7 @@
                     const match = matches.find(m => (m.p1 === names[i] && m.p2 === names[j]) || (m.p1 === names[j] && m.p2 === names[i]));
                     html += (i === j) ? `<td class="diagonal-line"></td>` : `<td><span class="match-num">${match ? match.num : ""}</span></td>`;
                 }
-                html += `<td class="print-only"></td><td class="print-only"></td><td class="print-only"></td><td class="print-only"></td></tr>`;
+                html += `<td class="print-only"></td><td class="print-only"></td><td class="print-only"></td><td class="print-only"></td><td class="print-only"></td></tr>`;
             }
             
             html += `</table>` +
