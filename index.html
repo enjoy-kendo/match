@@ -283,8 +283,10 @@
             <textarea id="names" placeholder="Aさん&#10;Bさん&#10;Cさん"></textarea>
         </div>
         <button onclick="generate()">表を作成</button>
-        <button id="printBtn" onclick="printOnePage()" disabled style="background-color: #6c757d;">1ページにまとめて印刷</button>
-        <button id="print2PagesBtn" onclick="printTwoPages()" disabled style="background-color: #6c757d;">2ページに分けて印刷</button>
+        <div style="margin-top: 5px;">
+            <button id="printBtn" onclick="printOnePage()" disabled style="background-color: #6c757d;">1ページにまとめて印刷</button>
+            <button id="print2PagesBtn" onclick="printTwoPages()" disabled style="background-color: #6c757d;">2ページに分けて印刷</button>
+        </div>
     </div>
 
     <!-- 生成された対戦表が表示されるエリア -->
