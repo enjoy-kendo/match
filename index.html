@@ -205,12 +205,10 @@
 
             /* ==========================================================
                【1】「1ページにまとめて印刷」時の人数別（3〜12人）高さ指定
-               （ここで人数ごとに自由に個別の高さを指定できます）
                ========================================================== */
             body.print-mode-1page .page table th, 
             body.print-mode-1page .page table td { border: 0 !important; border-right: 1px solid #333 !important; border-bottom: 1px solid #333 !important; font-size: 11px !important; }
 
-            /* 対戦表の高さ（1ページ時） */
             body.print-mode-1page .page[data-n="3"] table th, body.print-mode-1page .page[data-n="3"] table td { height: 40px !important; }
             body.print-mode-1page .page[data-n="4"] table th, body.print-mode-1page .page[data-n="4"] table td { height: 40px !important; }
             body.print-mode-1page .page[data-n="5"] table th, body.print-mode-1page .page[data-n="5"] table td { height: 40px !important; }
@@ -222,7 +220,6 @@
             body.print-mode-1page .page[data-n="11"] table th, body.print-mode-1page .page[data-n="11"] table td { height: 33px !important; }
             body.print-mode-1page .page[data-n="12"] table th, body.print-mode-1page .page[data-n="12"] table td { height: 33px !important; }
 
-            /* 対戦順の高さ（1ページ時） */
             body.print-mode-1page .page[data-n="3"] .match-list-column table th, body.print-mode-1page .page[data-n="3"] .match-list-column table td { height: 35px !important; font-size: 11px !important; }
             body.print-mode-1page .page[data-n="4"] .match-list-column table th, body.print-mode-1page .page[data-n="4"] .match-list-column table td { height: 35px !important; font-size: 11px !important; }
             body.print-mode-1page .page[data-n="5"] .match-list-column table th, body.print-mode-1page .page[data-n="5"] .match-list-column table td { height: 35px !important; font-size: 11px !important; }
@@ -241,7 +238,6 @@
             body.print-mode-2pages .page table th, 
             body.print-mode-2pages .page table td { border: 0 !important; border-right: 1px solid #333 !important; border-bottom: 1px solid #333 !important; font-size: 11px !important; }
 
-            /* 対戦表の高さ（2ページ時） */
             body.print-mode-2pages .page[data-n="3"] table th, body.print-mode-2pages .page[data-n="3"] table td { height: 40px !important; }
             body.print-mode-2pages .page[data-n="4"] table th, body.print-mode-2pages .page[data-n="4"] table td { height: 40px !important; }
             body.print-mode-2pages .page[data-n="5"] table th, body.print-mode-2pages .page[data-n="5"] table td { height: 40px !important; }
@@ -253,7 +249,6 @@
             body.print-mode-2pages .page[data-n="11"] table th, body.print-mode-2pages .page[data-n="11"] table td { height: 40px !important; }
             body.print-mode-2pages .page[data-n="12"] table th, body.print-mode-2pages .page[data-n="12"] table td { height: 35px !important; }
 
-            /* 対戦順の高さ（2ページ時） */
             body.print-mode-2pages .page[data-n="3"] .match-list-column table th, body.print-mode-2pages .page[data-n="3"] .match-list-column table td { height: 35px !important; font-size: 12px !important; }
             body.print-mode-2pages .page[data-n="4"] .match-list-column table th, body.print-mode-2pages .page[data-n="4"] .match-list-column table td { height: 35px !important; font-size: 12px !important; }
             body.print-mode-2pages .page[data-n="5"] .match-list-column table th, body.print-mode-2pages .page[data-n="5"] .match-list-column table td { height: 35px !important; font-size: 12px !important; }
@@ -265,8 +260,6 @@
             body.print-mode-2pages .page[data-n="11"] .match-list-column table th, body.print-mode-2pages .page[data-n="11"] .match-list-column table td { height: 44px !important; font-size: 12px !important; }
             body.print-mode-2pages .page[data-n="12"] .match-list-column table th, body.print-mode-2pages .page[data-n="12"] .match-list-column table td { height: 38px !important; font-size: 12px !important; }
 
-
-            /* テーブル幅の指定 */
             .page[data-n="3"] table { width: 50% !important; }
             .page[data-n="4"] table { width: 60% !important; }
             .page[data-n="5"] table { width: 70% !important; }
@@ -284,7 +277,7 @@
 
     <!-- 入力・操作エリア -->
     <div id="formArea" class="no-print">
-        <h2>リーグ戦作成ツール（10人～12人用）</h2>
+        <h2>リーグ戦作成ツール（3人～12人用）</h2>
         <div class="form-group">
             <label>参加者名（3〜12人、改行区切り）</label>
             <textarea id="names" placeholder="Aさん&#10;Bさん&#10;Cさん"></textarea>
@@ -307,18 +300,19 @@
             8: [[0, 1, 17, 12, 23, 10, 27, 8], [1, 0, 5, 18, 13, 24, 9, 28], [17, 5, 0, 2, 19, 14, 25, 11], [12, 18, 2, 0, 6, 20, 15, 26], [23, 13, 19, 6, 0, 3, 21, 16], [10, 24, 14, 20, 3, 0, 7, 22], [27, 9, 25, 15, 21, 7, 0, 4], [8, 28, 11, 26, 16, 22, 4, 0]],
             9: [[0, 1, 24, 10, 19, 31, 16, 35, 5], [1, 0, 6, 25, 11, 20, 32, 17, 36], [24, 6, 0, 2, 26, 12, 21, 33, 18], [10, 25, 2, 0, 7, 27, 13, 22, 34], [19, 11, 26, 7, 0, 3, 28, 14, 23], [31, 20, 12, 27, 3, 0, 8, 29, 15], [16, 32, 21, 13, 28, 8, 0, 4, 30], [35, 17, 33, 22, 14, 29, 4, 0, 9], [5, 36, 18, 34, 23, 15, 30, 9, 0]],
             10: [[0, 1, 21, 14, 29, 35, 40, 12, 44, 10], [1, 0, 6, 22, 15, 30, 36, 41, 11, 45], [21, 6, 0, 2, 23, 16, 31, 37, 42, 13], [14, 22, 2, 0, 7, 24, 17, 32, 38, 43], [29, 15, 23, 7, 0, 3, 25, 18, 33, 39], [35, 30, 16, 24, 3, 0, 8, 26, 19, 34], [40, 36, 31, 17, 25, 8, 0, 4, 27, 20], [12, 41, 37, 32, 18, 26, 4, 0, 9, 28], [44, 11, 42, 38, 33, 19, 27, 9, 0, 5], [10, 45, 13, 43, 39, 34, 20, 28, 5, 0]],
+            /* 写真の数値を完全に対称になるよう正常化した11人用データ */
             11: [
-                [0, 1, 30, 12, 23, 43, 49, 39, 20, 54, 6],
-                [1, 0, 7, 31, 13, 24, 44, 50, 40, 21, 55],
-                [30, 7, 0, 2, 32, 14, 25, 45, 51, 41, 22],
-                [12, 31, 2, 0, 8, 33, 15, 26, 46, 52, 42],
-                [23, 13, 32, 8, 0, 3, 34, 16, 27, 47, 48],
-                [43, 24, 14, 33, 3, 0, 9, 4, 36, 18, 29],
-                [49, 44, 25, 15, 34, 9, 0, 5, 4, 37, 19],
-                [39, 50, 45, 26, 16, 4, 5, 0, 10, 5, 38],
-                [20, 40, 51, 46, 27, 36, 4, 10, 0, 5, 11],
-                [54, 21, 41, 52, 47, 18, 37, 5, 5, 0, 11],
-                [6, 55, 22, 42, 48, 29, 19, 38, 11, 11, 0]
+                [ 0,  1, 30, 12, 23, 43, 49, 39, 20, 54,  6],
+                [ 1,  0,  7, 31, 13, 24, 44, 50, 40, 21, 55],
+                [30,  7,  0,  2, 32, 14, 25, 45, 51, 41, 22],
+                [12, 31,  2,  0,  8, 33, 15, 26, 46, 52, 42],
+                [23, 13, 32,  8,  0,  3, 34, 16, 27, 47, 53],
+                [43, 24, 14, 33,  3,  0,  9, 35, 17, 28, 48],
+                [49, 44, 25, 15, 34,  9,  0,  4, 36, 18, 29],
+                [39, 50, 45, 26, 16, 35,  4,  0, 10, 37, 19],
+                [20, 40, 51, 46, 27, 17, 36, 10,  0,  5, 38],
+                [54, 21, 41, 52, 47, 28, 18, 37,  5,  0, 11],
+                [ 6, 55, 22, 42, 53, 48, 29, 19, 38, 11,  0]
             ],
             12: [
                 [0, 1, 25, 16, 35, 43, 55, 50, 61, 14, 65, 12],
@@ -326,7 +320,7 @@
                 [25, 7, 0, 2, 27, 18, 37, 45, 57, 52, 63, 15],
                 [16, 26, 2, 0, 8, 28, 19, 38, 46, 58, 53, 64],
                 [35, 17, 27, 8, 0, 3, 29, 20, 39, 47, 59, 54],
-                [43, 36, 18, 28, 3, 0, 9, 4, 30, 21, 48, 60],
+                [43, 36, 18, 28, 3, 0, 9, 30, 21, 40, 48, 60],
                 [55, 44, 37, 19, 29, 9, 0, 4, 31, 22, 41, 49],
                 [50, 56, 45, 38, 20, 30, 4, 0, 10, 32, 23, 42],
                 [61, 51, 57, 46, 39, 21, 31, 10, 0, 5, 33, 24],
