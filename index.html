@@ -38,7 +38,7 @@
         .section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1px; }
         .date-display { font-size: 0.7em; color: #666; }
 
-        /* セクションタイトルのスタイル（画面用：タイトルの下余白を詰める調整） */
+        /* セクションタイトルのスタイル（画面用） */
         .page h2.section-title { font-size: 11pt; margin: 0 0 1px 0 !important; }
         .page h2.match-list-title { margin-top: 10px !important; }
 
@@ -71,15 +71,17 @@
         }
 
         .print-only { display: none; }
-        .print-date { display: none; } /* 画面では非表示 */
+        .print-date { display: none; }
 
         /* ==========================================
-            通常画面プレビュー用の高さ・フォントサイズ調整
+            元通りの通常画面プレビュー用の高さ・フォントサイズ
            ========================================== */
         .page[data-n="7"] table th, .page[data-n="7"] table td,
         .page[data-n="8"] table th, .page[data-n="8"] table td,
         .page[data-n="9"] table th, .page[data-n="9"] table td,
-        .page[data-n="10"] table th, .page[data-n="10"] table td { height: 21px; font-size: 9px; padding: 0; }
+        .page[data-n="10"] table th, .page[data-n="10"] table td,
+        .page[data-n="11"] table th, .page[data-n="11"] table td,
+        .page[data-n="12"] table th, .page[data-n="12"] table td { height: 21px; font-size: 9px; padding: 0; }
 
         .page[data-n="3"] table th, .page[data-n="3"] table td,
         .page[data-n="4"] table th, .page[data-n="4"] table td,
@@ -104,17 +106,14 @@
             height: 25px;
         }
 
-        .page[data-n="9"] table th, .page[data-n="9"] table td,
-        .page[data-n="10"] table th, .page[data-n="10"] table td { height: 18px; font-size: 8px; }
-        
         .page[data-n="9"] .match-list-column table th, 
-        .page[data-n="9"] .match-list-column table td { 
-            height: 30px; 
-            font-size: 9px; 
-        }
-
+        .page[data-n="9"] .match-list-column table td,
         .page[data-n="10"] .match-list-column table th, 
-        .page[data-n="10"] .match-list-column table td { 
+        .page[data-n="10"] .match-list-column table td,
+        .page[data-n="11"] .match-list-column table th, 
+        .page[data-n="11"] .match-list-column table td,
+        .page[data-n="12"] .match-list-column table th, 
+        .page[data-n="12"] .match-list-column table td { 
             height: 23px; 
             font-size: 9px; 
         }
@@ -137,7 +136,6 @@
             .section-header { position: relative !important; }
             .date-display { display: none !important; }
 
-            /* 印刷時：対戦表テーブルの右端の延長上に日付を配置 */
             .print-date {
                 display: block !important;
                 position: absolute !important;
@@ -147,7 +145,6 @@
                 white-space: nowrap !important;
             }
 
-            /* 人数ごとの表の幅に合わせて日付の右端位置を同期 */
             .page[data-n="3"] .print-date { left: 50% !important; transform: translateX(-100%); }
             .page[data-n="4"] .print-date { left: 60% !important; transform: translateX(-100%); }
             .page[data-n="5"] .print-date { left: 70% !important; transform: translateX(-100%); }
@@ -156,6 +153,8 @@
             .page[data-n="8"] .print-date { left: 95% !important; transform: translateX(-100%); }
             .page[data-n="9"] .print-date { right: 0 !important; }
             .page[data-n="10"] .print-date { right: 0 !important; }
+            .page[data-n="11"] .print-date { right: 0 !important; }
+            .page[data-n="12"] .print-date { right: 0 !important; }
 
             .page h2.section-title { 
                 font-size: 9pt !important; 
@@ -163,12 +162,23 @@
                 margin-bottom: 0px !important; 
             }
 
-            .page h2.match-list-title {
+            /* --- 印刷モード別の改ページ・タイトル設定 --- */
+            body.print-mode-1page .page h2.match-list-title {
                 font-size: 9pt !important; 
-                margin-top: 30px !important; 
-                margin-bottom: 3px !important;
+                margin-top: 4px !important; 
+                margin-bottom: 2px !important;
+                break-before: avoid !important;
+                page-break-before: avoid !important;
             }
-            
+
+            body.print-mode-2pages .page h2.match-list-title {
+                font-size: 9pt !important; 
+                margin-top: 3px !important; 
+                margin-bottom: 3px !important;
+                break-before: page !important;
+                page-break-before: always !important;
+            }
+
             .page table td .match-num { 
                 position: absolute !important;
                 top: 3px !important; 
@@ -183,21 +193,80 @@
             .page table th { background-color: #eee !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .page table { border-collapse: separate !important; border-spacing: 0 !important; border-left: 1px solid #333; border-top: 1px solid #333; width: 100% !important; }
             
-            .page table th, .page table td { border: 0 !important; border-right: 1px solid #333 !important; border-bottom: 1px solid #333 !important; height: 37px !important; font-size: 11px !important; }
-            
-            .page[data-n="9"] .match-list-column table th, 
-            .page[data-n="9"] .match-list-column table td { height: 32px !important; font-size: 12px !important; }
-            .page[data-n="9"] .match-list-column td:first-child { font-size: 10px !important; width: 15px !important; }
+            .print-only { display: table-cell !important; width: 20px !important; font-size: 8px !important; padding: 0 !important; }
+            .diagonal-line { background: #eee !important; background-image: linear-gradient(to top right, transparent 49%, #666 50%, #666 51%, transparent 52%) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .match-list-container { display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px; }
+            .print-col-1 { min-width: 50% !important; max-width: 50% !important; }
+            .print-col-2 { min-width: 44% !important; }
+            .print-col-3 { min-width: 29% !important; }
 
-            .page[data-n="10"] .match-list-column table th, 
-            .page[data-n="10"] .match-list-column table td { height: 25px !important; font-size: 11px !important; }
-            .page[data-n="10"] .match-list-column td:first-child { font-size: 10px !important; width: 15px !important; }
+            .match-list-column td:first-child { font-size: 10px !important; width: 24px !important; }
+            .match-list-column .match-num-col { width: 24px !important; }
 
-            .match-list-column table th, .match-list-column table td { height: 32px !important; font-size: 14px !important; }
-            .match-list-column td:first-child { font-size: 12px !important; width: 30px !important; }
+            /* ==========================================================
+               【1】「1ページにまとめて印刷」時の人数別（3〜12人）高さ指定
+               （ここで人数ごとに自由に個別の高さを指定できます）
+               ========================================================== */
+            body.print-mode-1page .page table th, 
+            body.print-mode-1page .page table td { border: 0 !important; border-right: 1px solid #333 !important; border-bottom: 1px solid #333 !important; font-size: 11px !important; }
 
-            .match-list-column .match-num-col { width: 30px !important; }
-            
+            /* 対戦表の高さ（1ページ時） */
+            body.print-mode-1page .page[data-n="3"] table th, body.print-mode-1page .page[data-n="3"] table td { height: 40px !important; }
+            body.print-mode-1page .page[data-n="4"] table th, body.print-mode-1page .page[data-n="4"] table td { height: 40px !important; }
+            body.print-mode-1page .page[data-n="5"] table th, body.print-mode-1page .page[data-n="5"] table td { height: 40px !important; }
+            body.print-mode-1page .page[data-n="6"] table th, body.print-mode-1page .page[data-n="6"] table td { height: 40px !important; }
+            body.print-mode-1page .page[data-n="7"] table th, body.print-mode-1page .page[data-n="7"] table td { height: 40px !important; }
+            body.print-mode-1page .page[data-n="8"] table th, body.print-mode-1page .page[data-n="8"] table td { height: 40px !important; }
+            body.print-mode-1page .page[data-n="9"] table th, body.print-mode-1page .page[data-n="9"] table td { height: 40px !important; }
+            body.print-mode-1page .page[data-n="10"] table th, body.print-mode-1page .page[data-n="10"] table td { height: 36px !important; }
+            body.print-mode-1page .page[data-n="11"] table th, body.print-mode-1page .page[data-n="11"] table td { height: 33px !important; }
+            body.print-mode-1page .page[data-n="12"] table th, body.print-mode-1page .page[data-n="12"] table td { height: 33px !important; }
+
+            /* 対戦順の高さ（1ページ時） */
+            body.print-mode-1page .page[data-n="3"] .match-list-column table th, body.print-mode-1page .page[data-n="3"] .match-list-column table td { height: 35px !important; font-size: 11px !important; }
+            body.print-mode-1page .page[data-n="4"] .match-list-column table th, body.print-mode-1page .page[data-n="4"] .match-list-column table td { height: 35px !important; font-size: 11px !important; }
+            body.print-mode-1page .page[data-n="5"] .match-list-column table th, body.print-mode-1page .page[data-n="5"] .match-list-column table td { height: 35px !important; font-size: 11px !important; }
+            body.print-mode-1page .page[data-n="6"] .match-list-column table th, body.print-mode-1page .page[data-n="6"] .match-list-column table td { height: 35px !important; font-size: 11px !important; }
+            body.print-mode-1page .page[data-n="7"] .match-list-column table th, body.print-mode-1page .page[data-n="7"] .match-list-column table td { height: 50px !important; font-size: 11px !important; }
+            body.print-mode-1page .page[data-n="8"] .match-list-column table th, body.print-mode-1page .page[data-n="8"] .match-list-column table td { height: 35px !important; font-size: 11px !important; }
+            body.print-mode-1page .page[data-n="9"] .match-list-column table th, body.print-mode-1page .page[data-n="9"] .match-list-column table td { height: 38px !important; font-size: 11px !important; }
+            body.print-mode-1page .page[data-n="10"] .match-list-column table th, body.print-mode-1page .page[data-n="10"] .match-list-column table td { height: 31px !important; font-size: 11px !important; }
+            body.print-mode-1page .page[data-n="11"] .match-list-column table th, body.print-mode-1page .page[data-n="11"] .match-list-column table td { height: 25px !important; font-size: 11px !important; }
+            body.print-mode-1page .page[data-n="12"] .match-list-column table th, body.print-mode-1page .page[data-n="12"] .match-list-column table td { height: 20px !important; font-size: 11px !important; }
+
+
+            /* ==========================================================
+               【2】「2ページに分けて印刷」時の人数別（3〜12人）高さ指定
+               ========================================================== */
+            body.print-mode-2pages .page table th, 
+            body.print-mode-2pages .page table td { border: 0 !important; border-right: 1px solid #333 !important; border-bottom: 1px solid #333 !important; font-size: 11px !important; }
+
+            /* 対戦表の高さ（2ページ時） */
+            body.print-mode-2pages .page[data-n="3"] table th, body.print-mode-2pages .page[data-n="3"] table td { height: 40px !important; }
+            body.print-mode-2pages .page[data-n="4"] table th, body.print-mode-2pages .page[data-n="4"] table td { height: 40px !important; }
+            body.print-mode-2pages .page[data-n="5"] table th, body.print-mode-2pages .page[data-n="5"] table td { height: 40px !important; }
+            body.print-mode-2pages .page[data-n="6"] table th, body.print-mode-2pages .page[data-n="6"] table td { height: 40px !important; }
+            body.print-mode-2pages .page[data-n="7"] table th, body.print-mode-2pages .page[data-n="7"] table td { height: 40px !important; }
+            body.print-mode-2pages .page[data-n="8"] table th, body.print-mode-2pages .page[data-n="8"] table td { height: 40px !important; }
+            body.print-mode-2pages .page[data-n="9"] table th, body.print-mode-2pages .page[data-n="9"] table td { height: 40px !important; }
+            body.print-mode-2pages .page[data-n="10"] table th, body.print-mode-2pages .page[data-n="10"] table td { height: 40px !important; }
+            body.print-mode-2pages .page[data-n="11"] table th, body.print-mode-2pages .page[data-n="11"] table td { height: 40px !important; }
+            body.print-mode-2pages .page[data-n="12"] table th, body.print-mode-2pages .page[data-n="12"] table td { height: 35px !important; }
+
+            /* 対戦順の高さ（2ページ時） */
+            body.print-mode-2pages .page[data-n="3"] .match-list-column table th, body.print-mode-2pages .page[data-n="3"] .match-list-column table td { height: 35px !important; font-size: 12px !important; }
+            body.print-mode-2pages .page[data-n="4"] .match-list-column table th, body.print-mode-2pages .page[data-n="4"] .match-list-column table td { height: 35px !important; font-size: 12px !important; }
+            body.print-mode-2pages .page[data-n="5"] .match-list-column table th, body.print-mode-2pages .page[data-n="5"] .match-list-column table td { height: 35px !important; font-size: 12px !important; }
+            body.print-mode-2pages .page[data-n="6"] .match-list-column table th, body.print-mode-2pages .page[data-n="6"] .match-list-column table td { height: 35px !important; font-size: 12px !important; }
+            body.print-mode-2pages .page[data-n="7"] .match-list-column table th, body.print-mode-2pages .page[data-n="7"] .match-list-column table td { height: 60px !important; font-size: 12px !important; }
+            body.print-mode-2pages .page[data-n="8"] .match-list-column table th, body.print-mode-2pages .page[data-n="8"] .match-list-column table td { height: 55px !important; font-size: 12px !important; }
+            body.print-mode-2pages .page[data-n="9"] .match-list-column table th, body.print-mode-2pages .page[data-n="9"] .match-list-column table td { height: 55px !important; font-size: 12px !important; }
+            body.print-mode-2pages .page[data-n="10"] .match-list-column table th, body.print-mode-2pages .page[data-n="10"] .match-list-column table td { height: 54px !important; font-size: 12px !important; }
+            body.print-mode-2pages .page[data-n="11"] .match-list-column table th, body.print-mode-2pages .page[data-n="11"] .match-list-column table td { height: 44px !important; font-size: 12px !important; }
+            body.print-mode-2pages .page[data-n="12"] .match-list-column table th, body.print-mode-2pages .page[data-n="12"] .match-list-column table td { height: 38px !important; font-size: 12px !important; }
+
+
+            /* テーブル幅の指定 */
             .page[data-n="3"] table { width: 50% !important; }
             .page[data-n="4"] table { width: 60% !important; }
             .page[data-n="5"] table { width: 70% !important; }
@@ -206,13 +275,8 @@
             .page[data-n="8"] table { width: 95% !important; }
             .page[data-n="9"] table { width: 100% !important; }
             .page[data-n="10"] table { width: 100% !important; }
-
-            .print-only { display: table-cell !important; width: 20px !important; font-size: 8px !important; padding: 0 !important; }
-            .diagonal-line { background: #eee !important; background-image: linear-gradient(to top right, transparent 49%, #666 50%, #666 51%, transparent 52%) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            .match-list-container { display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px; }
-            .print-col-1 { min-width: 50% !important; max-width: 50% !important; }
-            .print-col-2 { min-width: 44% !important; }
-            .print-col-3 { min-width: 29% !important; }
+            .page[data-n="11"] table { width: 100% !important; }
+            .page[data-n="12"] table { width: 100% !important; }
         }
     </style>
 </head>
@@ -220,13 +284,14 @@
 
     <!-- 入力・操作エリア -->
     <div id="formArea" class="no-print">
-        <h2>リーグ戦作成ツール</h2>
+        <h2>リーグ戦作成ツール（10人～12人用）</h2>
         <div class="form-group">
-            <label>参加者名（3〜10人、改行区切り）</label>
+            <label>参加者名（3〜12人、改行区切り）</label>
             <textarea id="names" placeholder="Aさん&#10;Bさん&#10;Cさん"></textarea>
         </div>
         <button onclick="generate()">表を作成</button>
-        <button id="printBtn" onclick="window.print()" disabled style="background-color: #6c757d;">印刷する</button>
+        <button id="printBtn" onclick="printOnePage()" disabled style="background-color: #6c757d;">1ページにまとめて印刷</button>
+        <button id="print2PagesBtn" onclick="printTwoPages()" disabled style="background-color: #6c757d;">2ページに分けて印刷</button>
     </div>
 
     <!-- 生成された対戦表が表示されるエリア -->
@@ -241,7 +306,34 @@
             7: [[0, 1, 14, 8, 20, 12, 4], [1, 0, 5, 15, 9, 19, 13], [14, 5, 0, 2, 16, 10, 21], [8, 15, 2, 0, 6, 17, 11], [20, 9, 16, 6, 0, 3, 18], [12, 19, 10, 17, 3, 0, 7], [4, 13, 21, 11, 18, 7, 0]],
             8: [[0, 1, 17, 12, 23, 10, 27, 8], [1, 0, 5, 18, 13, 24, 9, 28], [17, 5, 0, 2, 19, 14, 25, 11], [12, 18, 2, 0, 6, 20, 15, 26], [23, 13, 19, 6, 0, 3, 21, 16], [10, 24, 14, 20, 3, 0, 7, 22], [27, 9, 25, 15, 21, 7, 0, 4], [8, 28, 11, 26, 16, 22, 4, 0]],
             9: [[0, 1, 24, 10, 19, 31, 16, 35, 5], [1, 0, 6, 25, 11, 20, 32, 17, 36], [24, 6, 0, 2, 26, 12, 21, 33, 18], [10, 25, 2, 0, 7, 27, 13, 22, 34], [19, 11, 26, 7, 0, 3, 28, 14, 23], [31, 20, 12, 27, 3, 0, 8, 29, 15], [16, 32, 21, 13, 28, 8, 0, 4, 30], [35, 17, 33, 22, 14, 29, 4, 0, 9], [5, 36, 18, 34, 23, 15, 30, 9, 0]],
-            10: [[0, 1, 21, 14, 29, 35, 40, 12, 44, 10], [1, 0, 6, 22, 15, 30, 36, 41, 11, 45], [21, 6, 0, 2, 23, 16, 31, 37, 42, 13], [14, 22, 2, 0, 7, 24, 17, 32, 38, 43], [29, 15, 23, 7, 0, 3, 25, 18, 33, 39], [35, 30, 16, 24, 3, 0, 8, 26, 19, 34], [40, 36, 31, 17, 25, 8, 0, 4, 27, 20], [12, 41, 37, 32, 18, 26, 4, 0, 9, 28], [44, 11, 42, 38, 33, 19, 27, 9, 0, 5], [10, 45, 13, 43, 39, 34, 20, 28, 5, 0]]
+            10: [[0, 1, 21, 14, 29, 35, 40, 12, 44, 10], [1, 0, 6, 22, 15, 30, 36, 41, 11, 45], [21, 6, 0, 2, 23, 16, 31, 37, 42, 13], [14, 22, 2, 0, 7, 24, 17, 32, 38, 43], [29, 15, 23, 7, 0, 3, 25, 18, 33, 39], [35, 30, 16, 24, 3, 0, 8, 26, 19, 34], [40, 36, 31, 17, 25, 8, 0, 4, 27, 20], [12, 41, 37, 32, 18, 26, 4, 0, 9, 28], [44, 11, 42, 38, 33, 19, 27, 9, 0, 5], [10, 45, 13, 43, 39, 34, 20, 28, 5, 0]],
+            11: [
+                [0, 1, 30, 12, 23, 43, 49, 39, 20, 54, 6],
+                [1, 0, 7, 31, 13, 24, 44, 50, 40, 21, 55],
+                [30, 7, 0, 2, 32, 14, 25, 45, 51, 41, 22],
+                [12, 31, 2, 0, 8, 33, 15, 26, 46, 52, 42],
+                [23, 13, 32, 8, 0, 3, 34, 16, 27, 47, 48],
+                [43, 24, 14, 33, 3, 0, 9, 4, 36, 18, 29],
+                [49, 44, 25, 15, 34, 9, 0, 5, 4, 37, 19],
+                [39, 50, 45, 26, 16, 4, 5, 0, 10, 5, 38],
+                [20, 40, 51, 46, 27, 36, 4, 10, 0, 5, 11],
+                [54, 21, 41, 52, 47, 18, 37, 5, 5, 0, 11],
+                [6, 55, 22, 42, 48, 29, 19, 38, 11, 11, 0]
+            ],
+            12: [
+                [0, 1, 25, 16, 35, 43, 55, 50, 61, 14, 65, 12],
+                [1, 0, 7, 26, 17, 36, 44, 56, 51, 62, 13, 66],
+                [25, 7, 0, 2, 27, 18, 37, 45, 57, 52, 63, 15],
+                [16, 26, 2, 0, 8, 28, 19, 38, 46, 58, 53, 64],
+                [35, 17, 27, 8, 0, 3, 29, 20, 39, 47, 59, 54],
+                [43, 36, 18, 28, 3, 0, 9, 4, 30, 21, 48, 60],
+                [55, 44, 37, 19, 29, 9, 0, 4, 31, 22, 41, 49],
+                [50, 56, 45, 38, 20, 30, 4, 0, 10, 32, 23, 42],
+                [61, 51, 57, 46, 39, 21, 31, 10, 0, 5, 33, 24],
+                [14, 62, 52, 58, 47, 40, 22, 32, 5, 0, 11, 34],
+                [65, 13, 63, 53, 59, 48, 41, 23, 33, 11, 0, 6],
+                [12, 66, 15, 64, 54, 60, 49, 42, 24, 34, 6, 0]
+            ]
         };
 
         function generate() {
@@ -249,7 +341,7 @@
             const names = textarea.value.split('\n').map(n => n.trim()).filter(n => n !== "");
             const n = names.length;
             
-            if (n < 3 || n > 10) { alert("3〜10人で入力してください"); return; }
+            if (n < 3 || n > 12) { alert("3〜12人で入力してください"); return; }
 
             const now = new Date();
             const dateStr = `${now.getFullYear()}/${now.getMonth() + 1}/${now.getDate()}`;
@@ -307,11 +399,27 @@
                     `</div>`;
 
             document.getElementById('output').innerHTML = html;
-            document.getElementById('printBtn').disabled = false;
-            document.getElementById('printBtn').style.backgroundColor = '#28a745';
+            
+            const btn1 = document.getElementById('printBtn');
+            const btn2 = document.getElementById('print2PagesBtn');
+            btn1.disabled = false;
+            btn1.style.backgroundColor = '#28a745';
+            btn2.disabled = false;
+            btn2.style.backgroundColor = '#17a2b8';
         }
 
-        // 入力フォームの表示・非表示を切り替える関数
+        function printOnePage() {
+            document.body.classList.remove('print-mode-2pages');
+            document.body.classList.add('print-mode-1page');
+            window.print();
+        }
+
+        function printTwoPages() {
+            document.body.classList.remove('print-mode-1page');
+            document.body.classList.add('print-mode-2pages');
+            window.print();
+        }
+
         function toggleForm() {
             const formArea = document.getElementById('formArea');
             const btn = document.getElementById('toggleBtn');
