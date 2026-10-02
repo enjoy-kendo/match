@@ -2,10 +2,11 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- スマホでの自動ズーム・不要な拡大を防ぐため maximum-scale=1.0 を追加 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>リーグ戦対戦表</title>
     <style>
-        /* ページ全体とベースの文字設定 */
+        /* ページ全体とベースの文字設定（入力フォーム等はゴシック体を維持） */
         body { font-family: sans-serif; padding: 8px; margin: 0; background-color: #fff; color: #333; }
 
         /* 入力フォームエリアのスタイル（画面表示用・印刷時は非表示） */
@@ -15,10 +16,23 @@
         /* 入力グループのスタイル */
         .form-group { margin-bottom: 8px; }
         .form-group label { display: block; font-weight: bold; margin-bottom: 2px; font-size: 0.9em; }
-        .form-group textarea { width: 100%; padding: 8px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; height: 200px; }
+        
+        /* テキストエリアのスタイル（行間を詰めて表示件数を増やす設定） */
+        .form-group textarea { 
+            width: 100%; 
+            max-width: 320px; 
+            padding: 4px 8px; 
+            font-size: 16px; /* 16px以上に設定してiOSの自動拡大を回避 */
+            line-height: 1.2; /* 行間を詰める設定 */
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            box-sizing: border-box; 
+            height: 180px; 
+            font-family: sans-serif; 
+        }
 
         /* ボタン共通スタイル */
-        button { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; background-color: #007bff; color: white; font-weight: bold; font-size: 14px; margin-right: 5px; margin-bottom: 5px; }
+        button { padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; background-color: #007bff; color: white; font-weight: bold; font-size: 13px; margin-right: 5px; margin-bottom: 5px; font-family: sans-serif; }
         button:disabled { background-color: #ccc; }
 
         /* フォーム切替ボタンのスタイル（対戦順テーブルのすぐ左下） */
@@ -30,11 +44,16 @@
             margin-top: 15px;
             margin-bottom: 15px;
             display: inline-block;
+            font-family: sans-serif;
+            font-weight: normal;
         }
         .toggle-form-btn:hover { background-color: #23272b; }
 
-        /* 各ページコンテナの共通スタイル（画面用） */
-        .page { margin-bottom: 20px; }
+        /* 各ページコンテナの共通スタイル（画面プレビュー用：明朝体を適用） */
+        .page { 
+            margin-bottom: 20px; 
+            font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif;
+        }
         .section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1px; }
         .date-display { font-size: 0.7em; color: #666; }
 
@@ -56,7 +75,7 @@
         .match-list-column .match-num-col { width: 24px; }
         .match-list-column td:first-child { width: 24px; font-size: 10px; }
 
-        .match-num { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #777; text-align: center; width: 100%; pointer-events: none; font-size: 10px; }
+        .match-num { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #555; text-align: center; width: 100%; pointer-events: none; font-size: 10px; }
         
         .match-list-container { display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px; }
         .print-col-1 { min-width: 50%; max-width: 50%; }
@@ -119,11 +138,14 @@
             font-size: 12px; 
         }
 
-
         /* ==========================================
             完全独立した実際の印刷時の設定（@media print）
            ========================================== */
         @media print {
+            body {
+                font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif !important;
+            }
+
             .no-print, .toggle-form-btn { display: none !important; }
             
             @page { size: A4 portrait; margin: 2mm 5mm 1mm 5mm; }
@@ -163,7 +185,6 @@
                 margin-bottom: 0px !important; 
             }
 
-            /* --- 印刷モード別の改ページ・タイトル設定 --- */
             body.print-mode-1page .page h2.match-list-title {
                 font-size: 9pt !important; 
                 margin-top: 8px !important; 
@@ -188,7 +209,7 @@
                 text-align: left !important; 
                 width: auto !important; 
                 font-size: 8px !important; 
-                color: #777 !important; 
+                color: #555 !important; 
             }
             
             .page table th { background-color: #eee !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -205,9 +226,6 @@
             .match-list-column td:first-child { font-size: 9px !important; width: 24px !important; }
             .match-list-column .match-num-col { width: 24px !important; }
 
-            /* ==========================================================
-               【1】「1ページにまとめて印刷」時の人数別（3〜12人）高さ・文字サイズ指定
-               ========================================================== */
             body.print-mode-1page .page table th, 
             body.print-mode-1page .page table td { border: 0 !important; border-right: 1px solid #333 !important; border-bottom: 1px solid #333 !important; font-size: 11px !important; }
 
@@ -222,7 +240,6 @@
             body.print-mode-1page .page[data-n="11"] table th, body.print-mode-1page .page[data-n="11"] table td { height: 28px !important; }
             body.print-mode-1page .page[data-n="12"] table th, body.print-mode-1page .page[data-n="12"] table td { height: 26px !important; }
 
-            /* 対戦順の名前セル（2列目以降）の文字サイズを最大化 */
             body.print-mode-1page .page[data-n="3"] .match-list-column table td:nth-child(n+2),
             body.print-mode-1page .page[data-n="4"] .match-list-column table td:nth-child(n+2),
             body.print-mode-1page .page[data-n="5"] .match-list-column table td:nth-child(n+2),
@@ -245,10 +262,6 @@
             body.print-mode-1page .page[data-n="11"] .match-list-column table th, body.print-mode-1page .page[data-n="11"] .match-list-column table td { height: 25px !important; }
             body.print-mode-1page .page[data-n="12"] .match-list-column table th, body.print-mode-1page .page[data-n="12"] .match-list-column table td { height: 21px !important; }
 
-
-            /* ==========================================================
-               【2】「2ページに分けて印刷」時の人数別（3〜12人）高さ・文字サイズ指定
-               ========================================================== */
             body.print-mode-2pages .page table th, 
             body.print-mode-2pages .page table td { border: 0 !important; border-right: 1px solid #333 !important; border-bottom: 1px solid #333 !important; font-size: 11px !important; }
 
@@ -263,7 +276,6 @@
             body.print-mode-2pages .page[data-n="11"] table th, body.print-mode-2pages .page[data-n="11"] table td { height: 40px !important; }
             body.print-mode-2pages .page[data-n="12"] table th, body.print-mode-2pages .page[data-n="12"] table td { height: 35px !important; }
 
-            /* 対戦順の名前セル（2列目以降）の文字サイズを最大化（ゆとりがあるため大きめに指定） */
             body.print-mode-2pages .page[data-n="3"] .match-list-column table td:nth-child(n+2),
             body.print-mode-2pages .page[data-n="4"] .match-list-column table td:nth-child(n+2),
             body.print-mode-2pages .page[data-n="5"] .match-list-column table td:nth-child(n+2),
